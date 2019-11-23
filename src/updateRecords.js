@@ -1,9 +1,5 @@
 const fs = require('fs');
-
-const readRecords = function(path) {
-  let records = fs.readFileSync(path, 'utf8');
-  return JSON.parse(records);
-};
+const readRecords = require('./beverageLib').lib.readRecords;
 
 const updateRecords = function(details, path) {
   let records = readRecords(path);
@@ -21,7 +17,6 @@ const updateRecords = function(details, path) {
 };
 
 const updateTransaction = function(details, recordFile) {
-  let oldRecords = readRecords(recordFile);
   updateRecords(details, recordFile);
   let message =
     'Transaction Recorded:\n' +
@@ -36,6 +31,5 @@ const updateTransaction = function(details, recordFile) {
   return message;
 };
 
-exports.readRecords = readRecords;
 exports.updateRecords = updateRecords;
 exports.updateTransaction = updateTransaction;

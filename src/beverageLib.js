@@ -1,7 +1,11 @@
-const updateTransaction = require('./updateRecords.js').updateTransaction;
-const queryTransaction = require('./queryTransaction.js').queryTransaction;
+const fs = require('fs');
 
-const createTransaction = function(details) {
+const readRecords = function(file) {
+  let records = fs.readFileSync(file, 'utf8');
+  return JSON.parse(records);
+};
+
+const getTransactionDetails = function(details) {
   details = details.slice(2);
   let transactionDetails = {};
   transactionDetails.action = details[0];
@@ -16,14 +20,7 @@ const createTransaction = function(details) {
   return transactionDetails;
 };
 
-const performTransaction = function(details, recordFile) {
-  let message = 'Cammand not implemented';
-  if (details.action == '--save') return updateTransaction(details, recordFile);
-  //if (details.action == '--query') return getDetails(details);
-  return message;
-};
-
 const lib = {};
-lib.performTransaction = performTransaction;
-lib.createTransaction = createTransaction;
+lib.readRecords = readRecords;
+lib.getTransactionDetails = getTransactionDetails;
 exports.lib = lib;
