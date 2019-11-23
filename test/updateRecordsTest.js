@@ -1,8 +1,35 @@
 const assert = require('assert');
 const readRecords = require('../src/updateRecords.js').readRecords;
 const updateTransaction = require('../src/updateRecords.js').updateTransaction;
+const makeRecordFormat = require('../src/updateRecords.js').makeRecordFormat;
 
 describe('Should check update records', () => {
+  it('Should read the records of file', () => {
+    let actualValue = readRecords('./juiceRecord/onlyForTest.json');
+    let expectedValue = {
+      '11113': [
+        { beverage: 'Banana', date: '2019-11-23T06:32:39.851Z', qty: '1' }
+      ]
+    };
+    assert.deepStrictEqual(actualValue, expectedValue);
+  });
+
+  it('Should make details in record format', () => {
+    let details = {
+      empID: 11113,
+      beverage: 'Banana',
+      date: '2019-11-23T06:32:39.851Z',
+      qty: '1'
+    };
+    let actualValue = makeRecordFormat(details);
+    let expectedValue = {
+      beverage: 'Banana',
+      date: '2019-11-23T06:32:39.851Z',
+      qty: '1'
+    };
+    assert.deepStrictEqual(actualValue, expectedValue);
+  });
+
   it('it Should update the records', () => {
     let transaction = {
       action: '--save',

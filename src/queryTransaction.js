@@ -1,30 +1,29 @@
-const readRecords = require('./beverageLib').lib.readRecords;
+const readRecords = require('./updateRecords').readRecords;
 
 const updateMessage = function(details) {
-  let empID = details.empID;
-  return function(message, content) {
-    let total = message.pop();
-    total = total + +content.qty;
-    let messageRow =
-      empID + ',' + content.beverage + ',' + content.qty + ',' + content.date;
-    message.push(messageRow, total);
-    return message;
+  const empID = details.empID;
+  return function(response, content) {
+    let totalJuice = response.pop();
+    totalJuice = +content.qty + totalJuice;
+    const messageRow = [empID, content.beverage, content.qty, content.date];
+    response.push(messageRow.join(','), totalJuice);
+    return response;
   };
 };
 
-const formatMessage = function(queryDetails, details) {
-  let message = ['Employee ID, Beverage, Quantity, Date', 0];
-  message = queryDetails.reduce(updateMessage(details), message);
-  message.push('Total: ' + message.pop() + ' Juice');
-  return message;
+const formatMessage = function(fetchDetails, details) {
+  let response = ['Employee ID, Beverage, Quantity, Date', 0];
+  response = fetchDetails.reduce(updateMessage(details), response);
+  response.push('Total: ' + response.pop() + ' Juice');
+  return response;
 };
 
-const getDetails = function(details, path) {
-  let records = readRecords(path);
-  let queryDetails = records[details.empID];
+const getDetails = function(details, recordFile) {
+  const records = readRecords(recordFile);
+  const fetchDetails = records[details.empID];
   let formattedMessage = ['No record'];
-  if (queryDetails != undefined) {
-    formattedMessage = formatMessage(queryDetails, details);
+  if (fetchDetails != undefined) {
+    formattedMessage = formatMessage(fetchDetails, details);
   }
   return formattedMessage.join('\n');
 };

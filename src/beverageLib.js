@@ -1,26 +1,24 @@
-const fs = require('fs');
-
-const readRecords = function(file) {
-  let records = fs.readFileSync(file, 'utf8');
-  return JSON.parse(records);
-};
+const updateTransaction = require('./updateRecords.js').updateTransaction;
+const getDetails = require('./queryTransaction.js').getDetails;
 
 const getTransactionDetails = function(details) {
-  details = details.slice(2);
-  let transactionDetails = {};
-  transactionDetails.action = details[0];
-  transactionDetails.empID = details[2];
+  const transactionDetails = { action: details[2], empID: details[4] };
   if (details.includes('--save')) {
-    transactionDetails.beverage = details[2];
-    transactionDetails.empID = details[4];
-    transactionDetails.qty = details[6];
-    let date = new Date();
+    transactionDetails.beverage = details[4];
+    transactionDetails.empID = details[6];
+    transactionDetails.qty = details[8];
+    const date = new Date();
     transactionDetails.date = date.toJSON();
   }
   return transactionDetails;
 };
 
-const lib = {};
-lib.readRecords = readRecords;
-lib.getTransactionDetails = getTransactionDetails;
-exports.lib = lib;
+const processTransaction = function(details, recordFile) {
+  const process = { '--save': updateTransaction, '--query': getDetails };
+  const operation = process[details.action];
+  if (operation != undefined) return operation(details, recordFile);
+  return 'Cammand not implemented';
+};
+
+exports.getTransactionDetails = getTransactionDetails;
+exports.processTransaction = processTransaction;
