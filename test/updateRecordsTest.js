@@ -1,22 +1,11 @@
 const assert = require('assert');
-const lib = require('../src/beverageLib.js').lib;
+const readRecords = require('../src/updateRecords.js').readRecords;
+const updateRecords = require('../src/updateRecords.js').updateRecords;
+//const readRecords = require('../src/updateRecords.js').readRecords;
 
 describe('function under test', () => {
-  it('it Should update the records', () => {
-    let transaction = {
-      action: '--save',
-      empID: '11111',
-      beverage: 'Orange',
-      qty: '1',
-      date: new Date().toJSON()
-    };
-    let actualValue = lib.performTransaction(transaction);
-    let date = new Date();
-    let expectedValue =
-      'Transaction Recorded:\n' +
-      'Employee ID,Beverage,Quantity,Date\n' +
-      '11111,Orange,1,' +
-      date.toJSON();
-    assert.deepStrictEqual(actualValue, expectedValue);
+  it('Should read the records of file', () => {
+    let actualValue = readRecords('./juiceRecord/onlyForTest.json');
+    assert.deepStrictEqual(actualValue, {});
   });
 });

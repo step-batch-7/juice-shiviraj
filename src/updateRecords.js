@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-const readRecords = function() {
-  let records = fs.readFileSync('./juiceRecord/juiceRecords.json', 'utf8');
+const readRecords = function(path) {
+  let records = fs.readFileSync(path, 'utf8');
   return JSON.parse(records);
 };
 
-const updateRecords = function(details) {
-  let records = readRecords();
+const updateRecords = function(details, path) {
+  let records = readRecords(path);
   let record = {
     beverage: details.beverage,
     qty: details.qty,
@@ -17,12 +17,12 @@ const updateRecords = function(details) {
   }
   records[details.empID].push(record);
   let updatedRecord = JSON.stringify(records);
-  fs.writeFileSync('./juiceRecord/juiceRecords.json', updatedRecord, 'utf8');
+  fs.writeFileSync(path, updatedRecord, 'utf8');
 };
 
-const updateTransaction = function(details) {
-  let oldRecords = readRecords();
-  updateRecords(details);
+const updateTransaction = function(details, recordFile) {
+  let oldRecords = readRecords(recordFile);
+  updateRecords(details, recordFile);
   let message =
     'Transaction Recorded:\n' +
     'Employee ID,Beverage,Quantity,Date\n' +
@@ -36,4 +36,6 @@ const updateTransaction = function(details) {
   return message;
 };
 
+exports.readRecords = readRecords;
+exports.updateRecords = updateRecords;
 exports.updateTransaction = updateTransaction;

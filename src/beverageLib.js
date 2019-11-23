@@ -1,4 +1,5 @@
 const updateTransaction = require('./updateRecords.js').updateTransaction;
+const queryTransaction = require('./queryTransaction.js').queryTransaction;
 
 const createTransaction = function(details) {
   details = details.slice(2);
@@ -15,9 +16,9 @@ const createTransaction = function(details) {
   return transactionDetails;
 };
 
-const performTransaction = function(details) {
+const performTransaction = function(details, recordFile) {
   let message = 'Cammand not implemented';
-  if (details.action == '--save') return updateTransaction(details);
+  if (details.action == '--save') return updateTransaction(details, recordFile);
   //if (details.action == '--query') return getDetails(details);
   return message;
 };
