@@ -7,7 +7,7 @@ const getTransactionDetails = require('../src/beverageLib')
 describe('Test for beverageLib.js', () => {
   it('it Should manipulate the --save transaction', () => {
     let transaction =
-      'node,filename,--save,--beverage,Orange,--empID,1111,--qty,1';
+      'node,filename,--save,--beverage,Orange,--empId,1111,--qty,1';
     let actualValue = getTransactionDetails(transaction.split(','));
     let expectedValue = {
       action: '--save',
@@ -20,7 +20,7 @@ describe('Test for beverageLib.js', () => {
   });
 
   it('it Should manipulate the --query transaction', () => {
-    let transaction = 'node,filename,--query,--empID,1111';
+    let transaction = 'node,filename,--query,--empId,1111';
     let actualValue = getTransactionDetails(transaction.split(','));
     let expectedValue = {
       action: '--query',
@@ -35,7 +35,7 @@ const path = './juiceRecord/onlyForTest.json';
 describe('Check processTransaction', () => {
   it('Should return cammand not implemented for invalid cammand', () => {
     let actualValue = processTransaction({ action: '--name' }, path);
-    let expectedValue = 'Cammand not implemented';
+    let expectedValue = 'Invalid cammand';
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 
