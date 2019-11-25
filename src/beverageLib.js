@@ -6,7 +6,7 @@ const getTransactionDetails = function(details) {
   const length = details.length;
   if ([5, 9].includes(length)) {
     const empID = details[details.lastIndexOf('--empId') + 1];
-    transactionDetails = { empID: empID };
+    transactionDetails.empID = empID;
     if (details.includes('--query')) {
       transactionDetails.action = '--query';
     }
