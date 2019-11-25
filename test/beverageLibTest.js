@@ -28,6 +28,13 @@ describe('Test for beverageLib.js', () => {
     };
     assert.deepStrictEqual(actualValue, expectedValue);
   });
+
+  it('it Should return invalid cammand for invalid cammand', () => {
+    let transaction = 'node,filename,--empId,1111';
+    let actualValue = getTransactionDetails(transaction.split(','));
+    let expectedValue = 'Invalid cammand';
+    assert.deepStrictEqual(actualValue, expectedValue);
+  });
 });
 
 const path = './juiceRecord/onlyForTest.json';
