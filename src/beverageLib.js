@@ -2,6 +2,7 @@ const updateTransaction = require('./updateRecords.js').updateTransaction;
 const getDetails = require('./queryTransaction.js').getDetails;
 
 const getTransactionDetails = function(details) {
+  const transactionDetails = {};
   const length = details.length;
   if ([5, 9].includes(length)) {
     const empID = details[details.lastIndexOf('--empId') + 1];
