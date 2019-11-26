@@ -11,10 +11,9 @@ describe('Test for beverageLib.js', () => {
     let actualValue = getTransactionDetails(transaction.split(','));
     let expectedValue = {
       action: '--save',
-      beverage: 'Orange',
-      empID: '1111',
-      qty: '1',
-      date: new Date().toJSON()
+      '--beverage': 'Orange',
+      '--empId': '1111',
+      '--qty': '1'
     };
     assert.deepStrictEqual(actualValue, expectedValue);
   });
@@ -24,7 +23,7 @@ describe('Test for beverageLib.js', () => {
     let actualValue = getTransactionDetails(transaction.split(','));
     let expectedValue = {
       action: '--query',
-      empID: '1111'
+      '--empId': '1111'
     };
     assert.deepStrictEqual(actualValue, expectedValue);
   });
@@ -32,7 +31,7 @@ describe('Test for beverageLib.js', () => {
   it('it Should return invalid cammand for invalid cammand', () => {
     let transaction = 'node,filename,--empId,1111';
     let actualValue = getTransactionDetails(transaction.split(','));
-    let expectedValue = 'Invalid cammand';
+    let expectedValue = { '--empId': '1111' };
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 });
@@ -48,23 +47,23 @@ describe('Check processTransaction', () => {
 
   it('Should return details for query cammand', () => {
     let actualValue = processTransaction(
-      { action: '--query', empID: '11113' },
+      { action: '--query', '--empId': '11113' },
       path
     );
     let expectedValue =
       'Employee ID, Beverage, Quantity, Date\n' +
       '11113,Banana,1,2019-11-23T06:32:39.851Z\n' +
-      'Total: 1 Juice';
+      'Total: 1 Juices';
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 
   it('Should acknowledge that for updating records', () => {
     let details = {
       action: '--save',
-      empID: '11113',
-      beverage: 'Banana',
-      qty: '1',
-      date: new Date().toJSON()
+      '--empId': '11113',
+      '--beverage': 'Banana',
+      '--qty': '1',
+      '--date': new Date().toJSON()
     };
 
     let date = new Date();

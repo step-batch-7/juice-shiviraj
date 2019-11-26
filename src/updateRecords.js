@@ -6,7 +6,11 @@ const readRecords = function(file) {
 };
 
 const makeRecordFormat = function(details) {
-  return { beverage: details.beverage, qty: details.qty, date: details.date };
+  return {
+    '--beverage': details['--beverage'],
+    '--qty': details['--qty'],
+    '--date': details['--date']
+  };
 };
 
 const updateRecords = function(details, path, empID) {
@@ -21,7 +25,12 @@ const updateRecords = function(details, path, empID) {
 const updateTransaction = function(details, recordFile) {
   updateRecords(details, recordFile, details.empID);
   const title = 'Transaction Recorded:\nEmployee ID,Beverage,Quantity,Date\n';
-  const contents = [details.empID, details.beverage, details.qty, details.date];
+  const contents = [
+    details['--empId'],
+    details['--beverage'],
+    details['--qty'],
+    details['--date']
+  ];
   return title + contents.join(',');
 };
 
