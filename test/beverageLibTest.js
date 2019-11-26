@@ -4,6 +4,17 @@ const readRecords = require('../src/beverageLib').readRecords;
 const getTransactionDetails = require('../src/beverageLib')
   .getTransactionDetails;
 
+const fs = {
+  readFileSync: function(file) {
+    assert.equal(file, 'path');
+    return '{}';
+  },
+  writeFileSync: function(file) {
+    assert.equal(file, 'path');
+  }
+};
+const date = new Date('2019-11-26T13:21:28.985Z');
+
 describe('Test for beverageLib.js', () => {
   it('it Should manipulate the --save transaction', () => {
     let transaction =
@@ -48,12 +59,11 @@ describe('Check processTransaction', () => {
   it('Should return details for query cammand', () => {
     let actualValue = processTransaction(
       { action: '--query', '--empId': '11113' },
-      path
+      'path',
+      date,
+      fs
     );
-    let expectedValue =
-      'Employee ID, Beverage, Quantity, Date\n' +
-      '11113,Banana,1,2019-11-23T06:32:39.851Z\n' +
-      'Total: 1 Juices';
+    let expectedValue = 'No record';
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 
@@ -62,13 +72,9 @@ describe('Check processTransaction', () => {
       action: '--save',
       '--empId': '11113',
       '--beverage': 'Banana',
-      '--qty': '1',
-      '--date': new Date().toJSON()
+      '--qty': '1'
     };
-
-    let date = new Date();
-    let path = './juiceRecord/testForWrite.json';
-    let actualValue = processTransaction(details, path);
+    let actualValue = processTransaction(details, 'path', date.toJSON(), fs);
 
     let expectedValue =
       'Transaction Recorded:\n' +

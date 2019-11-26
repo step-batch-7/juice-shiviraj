@@ -20,30 +20,13 @@ const getTransactionDetails = function(details) {
   return details.reduce(makeObject(details), {});
 };
 
-const processTransaction = function(details, recordFile) {
+const processTransaction = function(details, recordFile, date, fs) {
+  details['--date'] = date;
   const process = { '--save': updateTransaction, '--query': getDetails };
   const operation = process[details.action];
-  if (operation != undefined) return operation(details, recordFile);
+  if (operation != undefined) return operation(details, recordFile, fs);
   return 'Invalid cammand';
 };
 
 exports.getTransactionDetails = getTransactionDetails;
 exports.processTransaction = processTransaction;
-
-/*const transactionDetails = {};
-  const length = details.length;
-  const empID = details[details.lastIndexOf('--empId') + 1];
-  transactionDetails.empID = empID;
-  if (details.includes('--query')) {
-    transactionDetails.action = '--query';
-  }
-  if (details.includes('--save')) {
-    transactionDetails.action = '--save';
-    const beverage = details[details.lastIndexOf('--beverage') + 1];
-    const qty = details[details.lastIndexOf('--qty') + 1];
-    transactionDetails.beverage = beverage;
-    transactionDetails.qty = qty;
-    const date = new Date();
-    transactionDetails.date = date.toJSON();
-  }
-  return transactionDetails;*/

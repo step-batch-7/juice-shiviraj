@@ -1,6 +1,4 @@
-const fs = require('fs');
-
-const readRecords = function(file) {
+const readRecords = function(file, fs) {
   const records = fs.readFileSync(file, 'utf8');
   return JSON.parse(records);
 };
@@ -13,18 +11,19 @@ const makeRecordFormat = function(details) {
   };
 };
 
-const updateRecords = function(details, path, empId) {
-  const records = readRecords(path);
+const updateRecords = function(details, path, empId, fs) {
+  const records = readRecords(path, fs);
   const newRecord = makeRecordFormat(details);
-  if (records[empId] == undefined) records[empId] = [];
+  if (records[empId] == undefined) {
+    records[empId] = [];
+  }
   records[empId].push(newRecord);
   const updatedRecord = JSON.stringify(records);
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
 
-const updateTransaction = function(details, recordFile) {
-  details['--date'] = new Date().toJSON();
-  updateRecords(details, recordFile, details['--empId']);
+const updateTransaction = function(details, recordFile, fs) {
+  updateRecords(details, recordFile, details['--empId'], fs);
   const title = 'Transaction Recorded:\nEmployee ID,Beverage,Quantity,Date\n';
   const contents = [
     details['--empId'],

@@ -23,8 +23,8 @@ const formatMessage = function(fetchDetails, details) {
   return response;
 };
 
-const getDetails = function(details, recordFile) {
-  const records = readRecords(recordFile);
+const getDetails = function(details, recordFile, fs) {
+  const records = readRecords(recordFile, fs);
   const fetchDetails = records[details['--empId']];
   let formattedMessage = ['No record'];
   if (fetchDetails != undefined) {
