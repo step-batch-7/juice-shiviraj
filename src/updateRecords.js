@@ -13,17 +13,18 @@ const makeRecordFormat = function(details) {
   };
 };
 
-const updateRecords = function(details, path, empID) {
+const updateRecords = function(details, path, empId) {
   const records = readRecords(path);
   const newRecord = makeRecordFormat(details);
-  if (records[empID] == undefined) records[empID] = [];
-  records[empID].push(newRecord);
+  if (records[empId] == undefined) records[empId] = [];
+  records[empId].push(newRecord);
   const updatedRecord = JSON.stringify(records);
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
 
 const updateTransaction = function(details, recordFile) {
-  updateRecords(details, recordFile, details.empID);
+  details['--date'] = new Date().toJSON();
+  updateRecords(details, recordFile, details['--empId']);
   const title = 'Transaction Recorded:\nEmployee ID,Beverage,Quantity,Date\n';
   const contents = [
     details['--empId'],
