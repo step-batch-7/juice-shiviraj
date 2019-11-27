@@ -21,6 +21,19 @@ describe('Should check update records', () => {
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 
+  it('Should acknowdledge that all input is not given', () => {
+    let transaction = {
+      action: '--save',
+      '--empId': '11111',
+      '--beverage': 'Orange'
+    };
+    let actualValue = updateTransaction(transaction, 'path', fs, date.toJSON());
+    let expectedValue =
+      'Plese enter all the options in this format\n' +
+      'node beverage.js --save --empId 11111 --beverage Banana --qty 1';
+    assert.deepStrictEqual(actualValue, expectedValue);
+  });
+
   it('it Should update the records', () => {
     let transaction = {
       action: '--save',

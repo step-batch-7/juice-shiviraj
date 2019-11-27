@@ -23,7 +23,17 @@ const updateRecords = function(details, path, empId, fs) {
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
 
+const areEnoughOption = function(details) {
+  return Object.keys(details).length == 4;
+};
+
 const updateTransaction = function(details, recordFile, fs, date) {
+  if (!areEnoughOption(details)) {
+    return [
+      'Plese enter all the options in this format',
+      'node beverage.js --save --empId 11111 --beverage Banana --qty 1'
+    ].join('\n');
+  }
   details['--date'] = date;
   updateRecords(details, recordFile, details['--empId'], fs);
   const title = 'Transaction Recorded:\nEmployee ID,Beverage,Quantity,Date\n';
