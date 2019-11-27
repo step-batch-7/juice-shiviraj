@@ -12,13 +12,18 @@ const makeRecordFormat = function(details) {
   };
 };
 
-const updateRecords = function(details, path, empId, fs) {
+const isUndefined = function(value) {
+  return value == undefined;
+};
+
+const updateRecords = function(details, path, fs) {
   const records = readRecords(path, fs);
   const newRecord = makeRecordFormat(details);
-  if (records[empId] == undefined) {
-    records[empId] = [];
+  let recordOfEmp = records[details['--empId']];
+  if (isUndefined(recordOfEmp)) {
+    recordOfEmp = [];
   }
-  records[empId].push(newRecord);
+  recordOfEmp.push(newRecord);
   const updatedRecord = JSON.stringify(records, null, 2);
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
@@ -35,7 +40,7 @@ const updateTransaction = function(details, recordFile, fs, date) {
     ].join('\n');
   }
   details['--date'] = date;
-  updateRecords(details, recordFile, details['--empId'], fs);
+  updateRecords(details, recordFile, fs);
   const title = 'Transaction Recorded:\nEmployee ID,Beverage,Quantity,Date\n';
   const contents = [
     details['--empId'],
