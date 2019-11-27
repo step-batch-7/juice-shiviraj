@@ -5,6 +5,7 @@ const readRecords = function(file, fs) {
 
 const makeRecordFormat = function(details) {
   return {
+    '--empId': details['--empId'],
     '--beverage': details['--beverage'],
     '--qty': details['--qty'],
     '--date': details['--date']
@@ -14,11 +15,11 @@ const makeRecordFormat = function(details) {
 const updateRecords = function(details, path, empId, fs) {
   const records = readRecords(path, fs);
   const newRecord = makeRecordFormat(details);
-  if (records[empId] == undefined) {
+  if (records[empId] === undefined) {
     records[empId] = [];
   }
   records[empId].push(newRecord);
-  const updatedRecord = JSON.stringify(records);
+  const updatedRecord = JSON.stringify(records, null, 2);
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
 
