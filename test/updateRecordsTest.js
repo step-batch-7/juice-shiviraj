@@ -43,10 +43,9 @@ describe('Should check update records', () => {
       action: '--save',
       '--empId': '11111',
       '--beverage': 'Orange',
-      '--qty': '1',
-      '--date': date.toJSON()
+      '--qty': '1'
     };
-    let actualValue = updateTransaction(transaction, 'path', fs);
+    let actualValue = updateTransaction(transaction, 'path', fs, date.toJSON());
     let expectedValue =
       'Transaction Recorded:\n' +
       'Employee ID,Beverage,Quantity,Date\n' +
@@ -59,10 +58,9 @@ describe('Should check update records', () => {
       action: '--save',
       '--empId': '12345',
       '--beverage': 'Orange',
-      '--qty': '1',
-      '--date': date.toJSON()
+      '--qty': '1'
     };
-    let actualValue = updateTransaction(transaction, 'path', fs);
+    let actualValue = updateTransaction(transaction, 'path', fs, date.toJSON());
     let expectedValue =
       'Transaction Recorded:\n' +
       'Employee ID,Beverage,Quantity,Date\n' +

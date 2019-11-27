@@ -16,6 +16,7 @@ describe('Should check the query details', () => {
   it('Should return the query details ', () => {
     let details = [
       {
+        '--empId': '11113',
         '--beverage': 'Banana',
         '--qty': '1',
         '--date': '2019-11-23T06:32:39.851Z'
@@ -40,7 +41,7 @@ describe('Should check the query details', () => {
     const fs = {
       readFileSync: function(file) {
         assert.equal(file, 'path');
-        return '{"11113":[{"--beverage":"Orange","--qty":"3","--date":"2019-11-26T13:57:05.055Z"}]}';
+        return '{"11113":[{"--empId":"11113","--beverage":"Orange","--qty":"3","--date":"2019-11-26T13:57:05.055Z"}]}';
       }
     };
     let actualValue = getDetails({ '--empId': '11113' }, 'path', fs);

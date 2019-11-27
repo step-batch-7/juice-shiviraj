@@ -23,7 +23,8 @@ const updateRecords = function(details, path, empId, fs) {
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
 
-const updateTransaction = function(details, recordFile, fs) {
+const updateTransaction = function(details, recordFile, fs, date) {
+  details['--date'] = date;
   updateRecords(details, recordFile, details['--empId'], fs);
   const title = 'Transaction Recorded:\nEmployee ID,Beverage,Quantity,Date\n';
   const contents = [

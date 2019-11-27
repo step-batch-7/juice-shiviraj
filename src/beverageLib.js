@@ -21,10 +21,9 @@ const getTransactionDetails = function(details) {
 };
 
 const processTransaction = function(details, recordFile, date, fs) {
-  details['--date'] = date;
   const process = { '--save': updateTransaction, '--query': getDetails };
   const operation = process[details.action];
-  if (operation != undefined) return operation(details, recordFile, fs);
+  if (operation != undefined) return operation(details, recordFile, fs, date);
   return 'Invalid cammand';
 };
 
