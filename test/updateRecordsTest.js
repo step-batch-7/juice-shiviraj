@@ -21,23 +21,6 @@ describe('Should check update records', () => {
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 
-  it('Should make details in record format', () => {
-    let details = {
-      '--empId': '11113',
-      '--beverage': 'Banana',
-      '--date': '2019-11-23T06:32:39.851Z',
-      '--qty': '1'
-    };
-    let actualValue = makeRecordFormat(details);
-    let expectedValue = {
-      '--empId': '11113',
-      '--beverage': 'Banana',
-      '--date': '2019-11-23T06:32:39.851Z',
-      '--qty': '1'
-    };
-    assert.deepStrictEqual(actualValue, expectedValue);
-  });
-
   it('it Should update the records', () => {
     let transaction = {
       action: '--save',

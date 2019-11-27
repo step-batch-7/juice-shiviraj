@@ -15,7 +15,7 @@ const makeRecordFormat = function(details) {
 const updateRecords = function(details, path, empId, fs) {
   const records = readRecords(path, fs);
   const newRecord = makeRecordFormat(details);
-  if (records[empId] === undefined) {
+  if (records[empId] == undefined) {
     records[empId] = [];
   }
   records[empId].push(newRecord);
@@ -37,6 +37,4 @@ const updateTransaction = function(details, recordFile, fs, date) {
 };
 
 exports.readRecords = readRecords;
-exports.makeRecordFormat = makeRecordFormat;
-exports.updateRecords = updateRecords;
 exports.updateTransaction = updateTransaction;

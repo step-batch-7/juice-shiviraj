@@ -34,5 +34,4 @@ const getDetails = function(details, recordFile, fs) {
   return formattedMessage.join('\n');
 };
 
-exports.formatMessage = formatMessage;
 exports.getDetails = getDetails;
