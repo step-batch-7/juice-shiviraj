@@ -20,9 +20,8 @@ const filter = function(data, filterBy, key) {
 };
 
 const filterByOption = function(data, option) {
-  const keys = Object.keys(option);
-  for (let idx = 0; idx < keys.length; idx++) {
-    data = filter(data, option, keys[idx]);
+  for (const key in option) {
+    data = filter(data, option, key);
   }
   return data;
 };
@@ -30,7 +29,7 @@ const filterByOption = function(data, option) {
 const filterData = function(records, details) {
   const keys = Object.keys(records);
   let filteredData = keys.reduce(concatData(records), []);
-  if (details['--empId'] != undefined) {
+  if (details.hasOwnProperty('--empId')) {
     filteredData = records[details['--empId']];
   }
   if (filteredData != undefined) {

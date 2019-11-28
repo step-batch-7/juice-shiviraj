@@ -27,7 +27,7 @@ describe('Should check update records', () => {
       '--empId': '11111',
       '--beverage': 'Orange'
     };
-    let actualValue = updateTransaction(transaction, 'path', fs, date.toJSON());
+    let actualValue = updateTransaction(transaction, 'path', fs, date);
     let expectedValue =
       'Plese enter all the options in this format\n' +
       'node beverage.js --save --empId 11111 --beverage Banana --qty 1';
@@ -41,7 +41,7 @@ describe('Should check update records', () => {
       '--beverage': 'Orange',
       '--qty': '1'
     };
-    let actualValue = updateTransaction(transaction, 'path', fs, date.toJSON());
+    let actualValue = updateTransaction(transaction, 'path', fs, date);
     let expectedValue =
       'Transaction Recorded:\n' +
       'Employee ID,Beverage,Quantity,Date\n' +
@@ -56,7 +56,7 @@ describe('Should check update records', () => {
       '--beverage': 'Orange',
       '--qty': '1'
     };
-    let actualValue = updateTransaction(transaction, 'path', fs, date.toJSON());
+    let actualValue = updateTransaction(transaction, 'path', fs, date);
     let expectedValue =
       'Transaction Recorded:\n' +
       'Employee ID,Beverage,Quantity,Date\n' +

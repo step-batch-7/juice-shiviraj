@@ -74,7 +74,7 @@ describe('Check processTransaction', () => {
       '--beverage': 'Banana',
       '--qty': '1'
     };
-    let actualValue = processTransaction(details, 'path', date.toJSON(), fs);
+    let actualValue = processTransaction(details, 'path', date, fs);
 
     let expectedValue =
       'Transaction Recorded:\n' +

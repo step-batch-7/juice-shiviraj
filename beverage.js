@@ -7,7 +7,7 @@ const fs = require('fs');
 const main = function() {
   console.log('Anna Juice Ltd');
   const transactionDetails = getTransactionDetails(process.argv);
-  const date = new Date().toJSON();
+  const date = new Date();
   const message = processTransaction(transactionDetails, recordFile, date, fs);
   console.log(message);
 };

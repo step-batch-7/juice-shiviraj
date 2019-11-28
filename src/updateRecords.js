@@ -12,15 +12,11 @@ const makeRecordFormat = function(details) {
   };
 };
 
-const isUndefined = function(value) {
-  return value == undefined;
-};
-
 const updateRecords = function(details, path, fs) {
   const records = readRecords(path, fs);
   const newRecord = makeRecordFormat(details);
   let empId = details['--empId'];
-  if (isUndefined(records[empId])) {
+  if (!records.hasOwnProperty(empId)) {
     records[empId] = [];
   }
   records[empId].push(newRecord);
@@ -46,7 +42,7 @@ const updateTransaction = function(details, recordFile, fs, date) {
     details['--empId'],
     details['--beverage'],
     details['--qty'],
-    details['--date']
+    date.toJSON()
   ];
   return title + contents.join(',');
 };
