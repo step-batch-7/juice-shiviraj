@@ -1,7 +1,5 @@
-const removeKeys = function(object) {
-  delete object.action;
-  delete object['--empId'];
-  return object;
+const isIncludes = function(keys, key) {
+  return keys.includes(key);
 };
 
 const concatData = function(wholeData) {
@@ -21,7 +19,10 @@ const filter = function(data, filterBy, key) {
 
 const filterByOption = function(data, option) {
   for (const key in option) {
-    data = filter(data, option, key);
+    const keys = 'action,--empId'.split(',');
+    if (!isIncludes(keys, key)) {
+      data = filter(data, option, key);
+    }
   }
   return data;
 };
@@ -33,7 +34,6 @@ const filterData = function(records, details) {
     filteredData = records[details['--empId']];
   }
   if (filteredData != undefined) {
-    details = removeKeys(details);
     return filterByOption(filteredData, details);
   }
   return filteredData;

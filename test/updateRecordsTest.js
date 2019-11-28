@@ -1,5 +1,5 @@
 const assert = require('assert');
-const readRecords = require('../src/updateRecords.js').readRecords;
+const loadRecords = require('../src/updateRecords.js').loadRecords;
 const updateTransaction = require('../src/updateRecords.js').updateTransaction;
 const makeRecordFormat = require('../src/updateRecords.js').makeRecordFormat;
 
@@ -10,13 +10,17 @@ const fs = {
   },
   writeFileSync: function(file) {
     assert.equal(file, 'path');
+  },
+  existsSync: function(file) {
+    assert.equal(file, 'path');
+    return false;
   }
 };
 const date = new Date('2019-11-26T13:21:28.985Z');
 
 describe('Should check update records', () => {
   it('Should read the records of file', () => {
-    let actualValue = readRecords('path', fs);
+    let actualValue = loadRecords('path', fs);
     let expectedValue = {};
     assert.deepStrictEqual(actualValue, expectedValue);
   });

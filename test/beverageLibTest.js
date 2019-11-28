@@ -11,6 +11,10 @@ const fs = {
   },
   writeFileSync: function(file) {
     assert.equal(file, 'path');
+  },
+  existsSync: function(file) {
+    assert.equal(file, 'path');
+    return true;
   }
 };
 const date = new Date('2019-11-26T13:21:28.985Z');

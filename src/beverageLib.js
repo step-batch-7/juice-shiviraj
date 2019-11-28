@@ -2,8 +2,8 @@ const updateTransaction = require('./updateRecords.js').updateTransaction;
 const getDetails = require('./queryTransaction.js').getDetails;
 
 const makeObject = function(details) {
-  const validOption = ['--beverage', '--qty', '--date', '--empId'];
-  const action = ['--query', '--save'];
+  const validOption = '--beverage,--qty,--date,--empId'.split(',');
+  const action = '--query,--save'.split(',');
   return function(object, key, index) {
     if (action.includes(key)) {
       object.action = key;

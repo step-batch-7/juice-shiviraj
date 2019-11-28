@@ -8,6 +8,10 @@ const fs = {
   },
   writeFileSync: function(file) {
     assert.equal(file, 'path');
+  },
+  existsSync: function(file) {
+    assert.equal(file, 'path');
+    return false;
   }
 };
 
@@ -23,6 +27,10 @@ describe('Should check the query details', () => {
       readFileSync: function(file) {
         assert.equal(file, 'path');
         return '{"11113":[{"--empId":"11113","--beverage":"Orange","--qty":"3","--date":"2019-11-26T13:57:05.055Z"}]}';
+      },
+      existsSync: function(file) {
+        assert.equal(file, 'path');
+        return true;
       }
     };
     let actualValue = getDetails({ '--empId': '11113' }, 'path', fs);

@@ -1,4 +1,5 @@
-const readRecords = function(file, fs) {
+const loadRecords = function(file, fs) {
+  if (!fs.existsSync(file)) return {};
   const records = fs.readFileSync(file, 'utf8');
   return JSON.parse(records);
 };
@@ -13,7 +14,7 @@ const makeRecordFormat = function(details) {
 };
 
 const updateRecords = function(details, path, fs) {
-  const records = readRecords(path, fs);
+  const records = loadRecords(path, fs);
   const newRecord = makeRecordFormat(details);
   let empId = details['--empId'];
   if (!records.hasOwnProperty(empId)) {
@@ -47,5 +48,5 @@ const updateTransaction = function(details, recordFile, fs, date) {
   return title + contents.join(',');
 };
 
-exports.readRecords = readRecords;
+exports.loadRecords = loadRecords;
 exports.updateTransaction = updateTransaction;
