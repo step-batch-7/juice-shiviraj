@@ -19,11 +19,11 @@ const isUndefined = function(value) {
 const updateRecords = function(details, path, fs) {
   const records = readRecords(path, fs);
   const newRecord = makeRecordFormat(details);
-  let recordOfEmp = records[details['--empId']];
-  if (isUndefined(recordOfEmp)) {
-    recordOfEmp = [];
+  let empId = details['--empId'];
+  if (isUndefined(records[empId])) {
+    records[empId] = [];
   }
-  recordOfEmp.push(newRecord);
+  records[empId].push(newRecord);
   const updatedRecord = JSON.stringify(records, null, 2);
   fs.writeFileSync(path, updatedRecord, 'utf8');
 };
