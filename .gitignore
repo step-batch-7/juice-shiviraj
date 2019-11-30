@@ -1,8 +1,5 @@
 node_modules/
 todo.txt
 .nyc_output
-runAllTests.sh
-runAppTests.sh
-appTest/
 failures.txt
 notes
