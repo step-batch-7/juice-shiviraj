@@ -39,4 +39,4 @@ const filterData = function(records, details) {
   return filteredData;
 };
 
-exports.filterData = filterData;
+module.exports = { filterData };

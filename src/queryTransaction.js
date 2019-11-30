@@ -1,5 +1,5 @@
-const loadRecords = require('./updateRecords').loadRecords;
-const filterData = require('./filterDataUtils').filterData;
+const { loadRecords } = require('./updateRecords');
+const { filterData } = require('./filterDataUtils');
 
 const updateMessage = function(details) {
   const empId = details['--empId'];
@@ -18,7 +18,7 @@ const updateMessage = function(details) {
 };
 
 const formatMessage = function(fetchDetails, details) {
-  let response = ['Employee ID, Beverage, Quantity, Date', 0];
+  let response = [0];
   response = fetchDetails.reduce(updateMessage(details), response);
   response.push(`Total: ${response.pop()} Juices`);
   return response;
@@ -27,11 +27,14 @@ const formatMessage = function(fetchDetails, details) {
 const getDetails = function(details, recordFile, fs) {
   const records = loadRecords(recordFile, fs);
   const fetchDetails = filterData(records, details);
-  let formattedMessage = ['No record'];
+  const message = ['Employee ID, Beverage, Quantity, Date'];
+  let formattedMessage = ['Total: 0 Juices'];
   if (fetchDetails != undefined) {
+    formattedMessage.pop();
     formattedMessage = formatMessage(fetchDetails, details);
   }
-  return formattedMessage.join('\n');
+  message.push(...formattedMessage);
+  return message.join('\n');
 };
 
 exports.getDetails = getDetails;

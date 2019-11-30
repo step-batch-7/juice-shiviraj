@@ -1,14 +1,15 @@
 const fs = require('fs');
-const getTransactionDetails = require('./src/beverageLib.js')
-  .getTransactionDetails;
-const processTransaction = require('./src/beverageLib').processTransaction;
+const {
+  getTransactionDetails,
+  processTransaction
+} = require('./src/beverageLib.js');
+const { getDate, getDataStorePath } = require('./src/config');
 
 const main = function() {
-  console.log('Anna Juice Ltd');
   const transactionDetails = getTransactionDetails(process.argv);
-  const date = new Date();
-  const filePath = './juiceRecord/juiceRecords.json';
-  const message = processTransaction(transactionDetails, filePath, date, fs);
+  const path = getDataStorePath(process.env);
+  const dateWithEnv = getDate(process.env);
+  const message = processTransaction(transactionDetails, path, dateWithEnv, fs);
   console.log(message);
 };
 

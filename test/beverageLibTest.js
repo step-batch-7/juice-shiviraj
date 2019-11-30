@@ -1,9 +1,9 @@
 const assert = require('assert');
-const processTransaction = require('../src/beverageLib').processTransaction;
-const readRecords = require('../src/beverageLib').readRecords;
-const getTransactionDetails = require('../src/beverageLib')
-  .getTransactionDetails;
-
+const {
+  processTransaction,
+  readRecords,
+  getTransactionDetails
+} = require('../src/beverageLib');
 const fs = {
   readFileSync: function(file) {
     assert.equal(file, 'path');
@@ -67,7 +67,8 @@ describe('Check processTransaction', () => {
       date,
       fs
     );
-    let expectedValue = 'No record';
+    let expectedValue =
+      'Employee ID, Beverage, Quantity, Date\nTotal: 0 Juices';
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 

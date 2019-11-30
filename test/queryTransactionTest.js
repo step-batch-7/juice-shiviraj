@@ -1,5 +1,5 @@
 const assert = require('assert');
-const getDetails = require('../src/queryTransaction.js').getDetails;
+const { getDetails } = require('../src/queryTransaction.js');
 
 const fs = {
   readFileSync: function(file) {
@@ -18,7 +18,8 @@ const fs = {
 describe('Should check the query details', () => {
   it('Should return the query details ', () => {
     let actualValue = getDetails({ '--empId': '11113' }, 'path', fs);
-    let expectedValue = 'No record';
+    let expectedValue =
+      'Employee ID, Beverage, Quantity, Date\nTotal: 0 Juices';
     assert.deepStrictEqual(actualValue, expectedValue);
   });
 
